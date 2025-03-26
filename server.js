@@ -1,26 +1,29 @@
-const express = require('express')
-const app = express()
-app.use(express.json())
-const mongoose = require('mongoose')
-const router = require('./route')
-const cors =  require('cors')
-app.use(cors())
+const express = require('express');
+const mongoose = require('mongoose');
+const cors = require('cors');
+require('dotenv').config();
+const router = require('./route');
 
+const app = express();
+app.use(express.json());
+app.use(cors());
 
+// ✅ Default Route (Prevents 404)
+app.get("/", (req, res) => {
+    res.send("Backend is working!");
+});
 
+// ✅ Use Routes
+app.use('/api', router);
 
-mongoose.connect('mongodb://localhost:27017/criminal')
-    .then(console.log("Working..."))
-    .catch((error)=>{
-        console.log(error);
-    })
-
-app.get('/card',(req,res)=>{
-    res.send(console.log("hehehe"))
+// ✅ Connect to MongoDB (Replace with your MongoDB Atlas URI)
+mongoose.connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
 })
+.then(() => console.log("Connected to MongoDB"))
+.catch(err => console.log(err));
 
-app.use('/',router)
-
-app.listen(8000,console.log("Code Started..."))
-
-    
+// ✅ Start the Server (Use process.env.PORT for Vercel)
+const PORT = process.env.PORT || 8000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

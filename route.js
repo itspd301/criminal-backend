@@ -1,14 +1,14 @@
-const express  = require("express")
-const controllar = require('./controllar')
+const express = require("express");
+const controller = require("./controllar");
 
-const router = express.Router()
+const router = express.Router();
 
-router.get('/crime',controllar.getdata)
-router.post('/login',controllar.login)
-router.post('/register',controllar.register)
-router.post('/post',controllar.adddata)
-router.get('/findbyid/:id', controllar.getdatabyid)
-router.delete('/delete/:id',controllar.deletedatabyid)
-router.put('/update/:id',controllar.updatedatabyid)
+router.get('/crime', controller.getdata);
+router.post('/login', controller.login);
+router.post('/register', controller.register);
+router.post('/post', controller.adddata);
+router.get('/findbyid/:id', controller.getdatabyid);
+router.delete('/delete/:id', controller.deletedatabyid);
+router.put('/update/:id', controller.updatedatabyid);
 
-module.exports = router 
+module.exports = router;
